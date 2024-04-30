@@ -1,0 +1,49 @@
+
+
+.form-volunteer{
+    width: 35rem;
+    height: 33rem;
+    padding: 1rem;
+}
+.volunteer{
+    display: flex;
+    justify-content: end;
+    background-image: url("/public/images/Volunteer.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.VolunteerForm{
+    width: 40rem;
+    padding: 1rem;
+    margin: 0rem 2rem 6rem 2rem;
+    z-index: 1;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;  
+   
+}
+
+
+
+
+.VolunteerForm h2 {
+    color: black;
+    text-shadow: 2px 2px 4px #000000;
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-top: -1rem;
+ 
+}
+
+
+
+.VolunteerForm .btn{
+    margin:1rem 30%;
+    color: black;
+    font-weight: 600;
+}
+
