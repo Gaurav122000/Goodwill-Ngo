@@ -13,27 +13,9 @@ const Contact = () => {
     <>
     <div className='events'>
       {/* <div className="events"> */}
-      {/* <div className="page-nav no-margin row">
-        <div className="container">
-          <div className="row">
-            <h2>Our Contact</h2>
-            <ul>
-              <li>
-                <a href="/">
-                  <i className="fas fa-home"></i> Home
-                </a>
-              </li>
-              <li>  <a href="/contact">
-                <i className="fas fa-angle-double-right"></i> Contact
-              </a></li>
-            </ul>
-          </div>
-        </div>
-      </div> */}
 
       {/* Contact Form */}
       <section className="our-blog">
-
 
       {/* Contact Details */}
       <div className="row contact-row no-margin">
@@ -139,8 +121,8 @@ const Contact = () => {
         ></iframe>
       </div>
       </section>
-      <Footer />
       </div>
+      <Footer />
     </>
   );
 };

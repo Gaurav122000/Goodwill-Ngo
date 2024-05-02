@@ -16,13 +16,12 @@ function Blog() {
       .then(data => setBlogs(data));
   }, []);
 
-  console.log(blogs)
 
 
 
   return (
+    <>
     <div className='events'>
-
       {/* Our Blog Section */}
       <section className="our-blog">
         <div className="container">
@@ -54,9 +53,10 @@ function Blog() {
         </div>
       </section>
       {/* End Our Blog Section */}
-      <Footer />
+     
     </div>
-
+    <Footer />
+  </>
   );
 }
 
