@@ -47,17 +47,32 @@ const DonationForm = () => {
     // sending data
     setLoading(true);
     try {
-      await fetch('http://127.0.0.1:3001/donation-form', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, phone, address, donation, amount, choice, pickup }) })
-      // console.log(data); 
+      const response = await fetch('http://127.0.0.1:3001/donation-form', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, phone, address, donation, amount, choice, pickup })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json(); // This will parse the response as JSON
+
+      console.log(data); // This will log the response data to the console
+
       setTimeout(() => {
         setLoading(false);
         alert("Form submitted successfully!");
-        navigate('/');
+        navigate('/'); // Redirect to home page
       }, 3000);
     }
     catch (error) {
       console.log(error);
+      setLoading(false);
+      alert("An error occurred while submitting the form. Please try again."); // Show an error alert
     }
+
   }
 
   //For quantity

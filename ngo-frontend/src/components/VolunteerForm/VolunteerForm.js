@@ -50,23 +50,38 @@ function VolunteerForm() {
         }
         setLoading(true);
         try {
-            await fetch('http://127.0.0.1:3001/volunteer-form', { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, contact, age, gender, address }) })
-            // console.log(data); 
+            const response = await fetch('http://127.0.0.1:3001/volunteer-form', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ name, email, contact, age, gender, address })
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json(); // This will parse the response as JSON
+
+            console.log(data); // This will log the response data to the console
+
             setTimeout(() => {
                 setLoading(false);
-                alert("Form submitted successfully!");
+                alert(`Form submitted successfully! ${name}`);
                 navigate('/'); // Redirect to home page
             }, 3000);
         }
         catch (error) {
             console.log(error);
             setLoading(false);
+            alert("An error occurred while submitting the form. Please try again."); // Show an error alert
         }
+
+
     }
 
 
     return (
-        <>  
+        <>
             <div className="volunteer">
                 <div className="VolunteerForm">
                     <form className='form-volunteer' onSubmit={handleSubmit}>
@@ -91,6 +106,7 @@ function VolunteerForm() {
                                 size='lg'
                                 name='email'
                                 onChange={(e) => setEmail(e.target.value)}
+                                required
                             />
                             <label htmlFor="email">Email address</label>
                         </Form.Floating>
@@ -102,6 +118,7 @@ function VolunteerForm() {
                                 size='lg'
                                 name='contact'
                                 onChange={(e) => setContact(e.target.value)}
+                                required
                             />
                             <label htmlFor="contact">Mobile Number</label>
                         </Form.Floating>
@@ -113,11 +130,12 @@ function VolunteerForm() {
                                 size='lg'
                                 name='age'
                                 onChange={(e) => setAge(e.target.value)}
+                                required
                             />
                             <label htmlFor="age">Age</label>
                         </Form.Floating>
                         <FloatingLabel controlId="floatingSelect" label="Select Your Gender">
-                            <Form.Select onChange={(e) => setGender(e.target.value)} name='gender' aria-label="Gender">
+                            <Form.Select onChange={(e) => setGender(e.target.value)} name='gender' aria-label="Gender" required>
                                 <option>Gender</option>
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
@@ -132,6 +150,7 @@ function VolunteerForm() {
                                 size='lg'
                                 name='address'
                                 onChange={(e) => setAddress(e.target.value)}
+                                required
                             />
                             <label htmlFor="address">Address</label>
                         </Form.Floating>
