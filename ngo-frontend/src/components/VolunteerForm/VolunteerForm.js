@@ -6,6 +6,10 @@ import "./VolunteerForm.css"
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.min.css';
+import {  toast } from 'react-custom-alert';
+import 'react-custom-alert/dist/index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
 
 
 function VolunteerForm() {
@@ -37,16 +41,31 @@ function VolunteerForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!validateEmail(email)) {
-            alert("Invalid email format");
-            return;
+            toast.warning(
+                <div style={{fontWeight:"bold"}}>Email Alert : Enter Valid Email &nbsp;
+                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                </div>
+                );
+                return;
+           
         }
         if (!validatePhoneNumber(contact)) {
-            alert("Invalid phone number format");
-            return;
+            toast.warning(
+                <div style={{fontWeight:"bold"}}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
+                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                </div>
+                )
+                alert("")
+                return;
         }
         if (!validateAge(age)) {
-            alert("Invalid age. Age should be between 18 and 100");
-            return;
+            toast.warning(
+                <div style={{fontWeight:"bold"}}>Age Alert : Age Should be between 18 to 80 &nbsp;
+                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                </div>
+                )
+                return;
+            
         }
         setLoading(true);
         try {
@@ -68,7 +87,7 @@ function VolunteerForm() {
                 setLoading(false);
                 alert(`Form submitted successfully! ${name}`);
                 navigate('/'); // Redirect to home page
-            }, 3000);
+            }, 2000);
         }
         catch (error) {
             console.log(error);

@@ -5,6 +5,11 @@ import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
 import './Form.css'
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-custom-alert';
+import 'react-custom-alert/dist/index.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {  faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import Alert from 'react-bootstrap/Alert';
 
 
 const DonationForm = () => {
@@ -36,11 +41,19 @@ const DonationForm = () => {
     event.preventDefault();
     // checking the validation
     if (!validateEmail(email)) {
-      alert("Invalid email format");
+      toast.warning(
+      <div style={{fontWeight:"bold"}}>Email Alert : Enter Valid Email &nbsp;
+      <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+      </div>
+      );
       return;
     }
     if (!validatePhoneNumber(phone)) {
-      alert("Invalid phone number format");
+      toast.warning(
+        <div style={{fontWeight:"bold"}}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
+        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        </div>
+        )
       return;
     }
 
@@ -68,6 +81,7 @@ const DonationForm = () => {
       }, 3000);
     }
     catch (error) {
+      toast.error("Something Went Wrong.Please Try Again!")
       console.log(error);
       setLoading(false);
       alert("An error occurred while submitting the form. Please try again."); // Show an error alert
@@ -82,11 +96,20 @@ const DonationForm = () => {
 
   const handleQuantity = (event) => {
     if (pickup < 15) {
-      alert("Quantity Should be more then 15")
+      toast.warning(
+        <div style={{fontWeight:"bold"}}> Quantity Alert : Quantity Should be more then 15 &nbsp;
+        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        </div>
+        )
       event.preventDefault();
     }
     else {
-      alert("Form Submited")
+      toast.success(
+        <div style={{fontWeight:"bold"}}>
+          Form submitted successfully! &nbsp;
+          <FontAwesomeIcon icon={faFaceSmile} beat style={{color: "#FFD43B",}} />
+        </div>
+      );
       // navigate("/NextPage")
     }
   }
@@ -122,7 +145,11 @@ const DonationForm = () => {
   const handleMinAmount = (event) => {
 
     if (showhide === "money" && mAmnt <= 250) {
-      alert("Money less then 250");
+      toast.warning(
+        <div style={{fontWeight:"bold"}}> Money Alert : Money Should be More then 250 &nbsp;
+        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        </div>
+        )
       event.preventDefault(); // This will prevent the form from being submitted
 
     }
@@ -242,7 +269,7 @@ const DonationForm = () => {
                           <label htmlFor="quantity">Quantity</label>
                         </Form.Floating>
                         <Button className='btn' id="submitButton" type='submit' size='lg' variant="success" disabled={loading} onClick={handleQuantity}>
-                          {loading ? "Submiting..." : "Next Page"}
+                          {loading ? "Submiting..." : "Submit"}
                         </Button>
                       </>
                     )
@@ -252,7 +279,7 @@ const DonationForm = () => {
                     choice === "courier" && (
                       <>
                         <Button className='btn' id="submitButton" type='submit' size='lg' variant="success" disabled={loading}>
-                          {loading ? "Submiting..." : "Next Page"}
+                          {loading ? "Submiting..." : "Submit"}
                         </Button>
                       </>
                     )
@@ -260,9 +287,6 @@ const DonationForm = () => {
                 </>
               )
             }
-
-
-            {/* <button type="submit" id="submitButton" onClick={(event) => handleMinAmount(event)}>Proceed to Next Page</button> */}
           </form>
         </div>
       </div>
