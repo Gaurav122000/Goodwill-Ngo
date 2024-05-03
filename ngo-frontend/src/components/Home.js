@@ -6,6 +6,7 @@ import "../assets/css/animate.css";
 import Footer from '../components/Footer/Footer';
 import AboutCharity from './About/AboutCharity';
 import ServicesCard from './Services/ServicesCard';
+import ReadMore from './ReadMore';
 
 
 // import About from './About';
@@ -183,10 +184,7 @@ function Home() {
                     <div className="blog-detail">
                       <small>{blog.name}</small>
                       <h4>{blog.title}</h4>
-                      <p>{blog.blog}</p>
-                      <div className="link">
-                        <a href="">Read more </a><i className="fas fa-long-arrow-alt-right"></i>
-                      </div>
+                      <ReadMore props={blog.blog} />
                     </div>
                   </div>
                 </div>

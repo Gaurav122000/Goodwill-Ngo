@@ -20,7 +20,7 @@ function About() {
             </div>
             <div className="image-part col-md-6">
               <div className="about-quick-box row">
-                <div className="col-md-6">
+                <div className="col-md-6 ">
                   <a href="/volunteerForm">
                     <div className="about-qcard">
                       <FontAwesomeIcon icon={faUser} style={{ height: "50px", color: "#42d288" }} />
