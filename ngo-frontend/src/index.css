@@ -12,3 +12,9 @@ code {
     monospace;
 }
 
+.read-more{
+  color: green;
+  font-weight: bold;
+  cursor: pointer;
+}
+

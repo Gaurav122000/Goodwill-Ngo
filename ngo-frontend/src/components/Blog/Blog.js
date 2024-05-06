@@ -4,6 +4,7 @@ import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/style.css";
 import "../../assets/css/all.min.css";
 import "../../assets/css/animate.css";
+import ReadMore from '../ReadMore';
 
 
 function Blog() {
@@ -15,6 +16,7 @@ function Blog() {
       .then(response => response.json())
       .then(data => setBlogs(data));
   }, []);
+
 
 
 
@@ -38,10 +40,7 @@ function Blog() {
                     <div className="blog-detail">
                       <small>{blog.name}</small>
                       <h4>{blog.title}</h4>
-                      <p>{blog.blog}</p>
-                      <div className="link">
-                        <a href="">Read more </a><i className="fas fa-long-arrow-alt-right"></i>
-                      </div>
+                      <ReadMore props={blog.blog} />
                     </div>
                   </div>
                 </div>

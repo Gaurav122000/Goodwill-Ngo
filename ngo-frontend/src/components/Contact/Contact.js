@@ -6,17 +6,16 @@ import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/style.css";
 import "../../assets/css/all.min.css";
 import "../../assets/css/animate.css";
-
 import Footer from '../Footer/Footer';
 import Button from "react-bootstrap/esm/Button";
-// import "../../assets/plugins/slider/css/owl.theme.default.css";
-// import "../../assets/plugins/slider/css/owl.carousel.min.css";
+
 
 const Contact = () => {
   // useStates
   const [name, setName] = useState()
   const [email, setEmail] = useState()
   const [phone, setContact] = useState()
+  const [subject,setSubject] = useState()
   const [message, setComment] = useState()
   const [loading, setLoading] = useState(false);
 
@@ -33,7 +32,6 @@ const Contact = () => {
   // handle submit
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     if (!validateEmail(email)) {
       alert("Invalid email format");
       return;
@@ -47,7 +45,7 @@ const Contact = () => {
       const response = await fetch('http://127.0.0.1:3001/contact-us-form', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone, message })
+        body: JSON.stringify({ name, email, phone , subject , message })
       });
 
       if (!response.ok) {
@@ -94,7 +92,7 @@ const Contact = () => {
       </div> */}
 
         {/* Contact Form */}
-        <section className="our-blog">
+        <section className="our-blog" style={{marginTop:"-2rem"}}>
 
 
           {/* Contact Details */}
@@ -103,7 +101,7 @@ const Contact = () => {
               <div className="row">
 
                 <form style={{ padding: "20px" }} className="col-sm-7" onSubmit={handleSubmit}>
-                  <h2>Contact Form</h2>
+                  <h2 className="mb-4">Contact Form</h2>
 
                   <Form.Floating>
                     <Form.Control
@@ -141,6 +139,19 @@ const Contact = () => {
                     />
                     <label htmlFor="contact">Mobile Number</label>
                   </Form.Floating>
+
+                  <Form.Floating>
+                    <Form.Control
+                      id="subject"
+                      type="text"
+                      placeholder=""
+                      size='lg'
+                      name='subject'
+                      onChange={(e) => setSubject(e.target.value)}
+                    />
+                    <label htmlFor="subject">Subject</label>
+                  </Form.Floating>
+
 
                   <FloatingLabel controlId="floatingTextarea2" label="Comments">
                     <Form.Control
@@ -187,8 +198,8 @@ const Contact = () => {
             ></iframe>
           </div>
         </section>
-        <Footer />
       </div>
+      <Footer />
     </>
   );
 };
