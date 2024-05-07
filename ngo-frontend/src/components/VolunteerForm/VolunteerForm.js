@@ -104,7 +104,7 @@ function VolunteerForm() {
             <div className="volunteer">
                 <div className="VolunteerForm">
                     <form className='form-volunteer' onSubmit={handleSubmit}>
-                        <h2>Volunteer Form</h2>
+                        {/* <h2>Volunteer Form</h2> */}
                         <Form.Floating>
                             <Form.Control
                                 id="name"

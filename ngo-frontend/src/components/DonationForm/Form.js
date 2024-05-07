@@ -161,7 +161,7 @@ const DonationForm = () => {
       <div className="donation">
         <div className="form-donation">
           <form id="donationForm" onSubmit={handleSubmit}>
-            <h2>Donation Form</h2>
+            {/* <h2>Donation Form</h2> */}
             <Form.Floating>
               <Form.Control
                 id="name"

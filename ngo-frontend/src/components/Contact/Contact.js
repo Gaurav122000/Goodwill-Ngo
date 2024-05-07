@@ -18,6 +18,7 @@ const Contact = () => {
   const [subject,setSubject] = useState()
   const [message, setComment] = useState()
   const [loading, setLoading] = useState(false);
+  
 
   // validator
   const validateEmail = (email) => {
@@ -114,6 +115,7 @@ const Contact = () => {
                       required
                     />
                     <label htmlFor="name">Full Name</label>
+                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                   </Form.Floating>
 
                   <Form.Floating>
@@ -126,6 +128,7 @@ const Contact = () => {
                       onChange={(e) => setEmail(e.target.value)}
                     />
                     <label htmlFor="email">Email address</label>
+                    
                   </Form.Floating>
 
                   <Form.Floating>
