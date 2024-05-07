@@ -1,0 +1,40 @@
+.heading{
+    display: flex;
+    flex-direction: column;
+}
+
+.Upload{
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+}
+
+.upload-card{
+    display: flex; 
+
+}
+
+.main-Card {
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: 10rem !important;
+    border-radius: 0.7rem;
+    color: white;
+    padding: 1rem;
+}
+
+.main-Card:hover {
+    box-shadow: none !important;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+
+}
+
+.link:hover{
+    cursor: pointer;
+    
+}
