@@ -21,7 +21,7 @@ function initRoutes(app){
                 // Include any other properties you want to send back
             };
             res.json(responseDonate);
-            sendMail2(donate);
+            sendMail(donate);
         })
         .catch(err => {
             console.error(err);
