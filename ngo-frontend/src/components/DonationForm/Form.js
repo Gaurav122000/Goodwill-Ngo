@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
 import Alert from 'react-bootstrap/Alert';
 
 
@@ -23,6 +23,8 @@ const DonationForm = () => {
   const [choice, setUserChoice] = useState()
   const [pickup, setPickupChoice] = useState()
   const [loading, setLoading] = useState(false);
+  const [validated, setValidated] = useState(false);
+
   const navigate = useNavigate();
 
   //validator
@@ -31,29 +33,35 @@ const DonationForm = () => {
     return re.test(String(email).toLowerCase());
   }
 
-  const validatePhoneNumber = (number) => {
+  const validatePhoneNumber = (phone) => {
     var re = /^\d{10}$/;
-    return re.test(number);
+    return re.test(phone);
   }
 
   //handle submit controlling the submition
   const handleSubmit = async (event) => {
     event.preventDefault();
+    event.stopPropagation();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      setValidated(true);
+      return;
+    }
     // checking the validation
     if (!validateEmail(email)) {
       toast.warning(
-      <div style={{fontWeight:"bold"}}>Email Alert : Enter Valid Email &nbsp;
-      <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
-      </div>
+        <div style={{ fontWeight: "bold" }}>Email Alert : Enter Valid Email &nbsp;
+          <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
+        </div>
       );
       return;
     }
     if (!validatePhoneNumber(phone)) {
       toast.warning(
-        <div style={{fontWeight:"bold"}}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
-        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        <div style={{ fontWeight: "bold" }}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
+          <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
         </div>
-        )
+      )
       return;
     }
 
@@ -97,17 +105,17 @@ const DonationForm = () => {
   const handleQuantity = (event) => {
     if (pickup < 15) {
       toast.warning(
-        <div style={{fontWeight:"bold"}}> Quantity Alert : Quantity Should be more then 15 &nbsp;
-        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        <div style={{ fontWeight: "bold" }}> Quantity Alert : Quantity Should be more then 15 &nbsp;
+          <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
         </div>
-        )
+      )
       event.preventDefault();
     }
     else {
       toast.success(
-        <div style={{fontWeight:"bold"}}>
+        <div style={{ fontWeight: "bold" }}>
           Form submitted successfully! &nbsp;
-          <FontAwesomeIcon icon={faFaceSmile} beat style={{color: "#FFD43B",}} />
+          <FontAwesomeIcon icon={faFaceSmile} beat style={{ color: "#FFD43B", }} />
         </div>
       );
       // navigate("/NextPage")
@@ -146,10 +154,10 @@ const DonationForm = () => {
 
     if (showhide === "money" && mAmnt <= 250) {
       toast.warning(
-        <div style={{fontWeight:"bold"}}> Money Alert : Money Should be More then 250 &nbsp;
-        <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+        <div style={{ fontWeight: "bold" }}> Money Alert : Money Should be More then 250 &nbsp;
+          <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
         </div>
-        )
+      )
       event.preventDefault(); // This will prevent the form from being submitted
 
     }
@@ -160,7 +168,7 @@ const DonationForm = () => {
     <>
       <div className="donation">
         <div className="form-donation">
-          <form id="donationForm" onSubmit={handleSubmit}>
+          <Form noValidate validated={validated} id="donationForm" onSubmit={handleSubmit}>
             {/* <h2>Donation Form</h2> */}
             <Form.Floating>
               <Form.Control
@@ -173,6 +181,9 @@ const DonationForm = () => {
                 required
               />
               <label htmlFor="name">Full Name</label>
+              <Form.Control.Feedback type="invalid">
+                Please provide your full name.
+              </Form.Control.Feedback>
             </Form.Floating>
             <Form.Floating>
               <Form.Control
@@ -182,8 +193,13 @@ const DonationForm = () => {
                 size='lg'
                 name='email'
                 onChange={(e) => setEmail(e.target.value)}
+                required
+                isValid={email && validateEmail(email)}
               />
               <label htmlFor="email">Email address</label>
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid email.
+              </Form.Control.Feedback>
             </Form.Floating>
             <Form.Floating>
               <Form.Control
@@ -194,8 +210,13 @@ const DonationForm = () => {
                 name='phone'
                 onChange={(e) => setPhone(e.target.value)}
                 required
+                isValid={phone && validatePhoneNumber(phone)}
+
               />
               <label htmlFor="contact">Mobile Number</label>
+              <Form.Control.Feedback type="invalid">
+                Please provide a valid mobile number.
+              </Form.Control.Feedback>
             </Form.Floating>
             <Form.Floating>
               <Form.Control
@@ -218,6 +239,9 @@ const DonationForm = () => {
                 <option value="money">Money</option>
                 <option value="shoes">Shoes</option>
               </Form.Select>
+              <Form.Control.Feedback type="invalid">
+                Please select a Donation.
+              </Form.Control.Feedback>
             </FloatingLabel>
             <br />
             {
@@ -265,7 +289,7 @@ const DonationForm = () => {
                             size='lg'
                             name='pickup'
                             onChange={minQuantity}
-                          />
+                          />              
                           <label htmlFor="quantity">Quantity</label>
                         </Form.Floating>
                         <Button className='btn' id="submitButton" type='submit' size='lg' variant="success" disabled={loading} onClick={handleQuantity}>
@@ -287,7 +311,7 @@ const DonationForm = () => {
                 </>
               )
             }
-          </form>
+          </Form>
         </div>
       </div>
       <Footer />

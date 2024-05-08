@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import Form from 'react-bootstrap/Form';
-// import Footer from '../Footer/Footer';
+import Button from "react-bootstrap/esm/Button";
 import FloatingLabel from 'react-bootstrap/esm/FloatingLabel';
+import Footer from '../Footer/Footer';
 import "../../assets/css/bootstrap.min.css";
 import "../../assets/css/style.css";
 import "../../assets/css/all.min.css";
 import "../../assets/css/animate.css";
-import Footer from '../Footer/Footer';
-import Button from "react-bootstrap/esm/Button";
-
 
 const Contact = () => {
   // useStates
-  const [name, setName] = useState()
-  const [email, setEmail] = useState()
-  const [phone, setContact] = useState()
-  const [subject,setSubject] = useState()
-  const [message, setComment] = useState()
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setContact] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setComment] = useState('');
   const [loading, setLoading] = useState(false);
-  
+  const [validated, setValidated] = useState(false);
 
   // validator
   const validateEmail = (email) => {
@@ -26,27 +24,27 @@ const Contact = () => {
     return re.test(String(email).toLowerCase());
   }
 
-  const validatePhoneNumber = (number) => {
+  const validatePhoneNumber = (phone) => {
     var re = /^\d{10}$/;
-    return re.test(number);
+    return re.test(phone);
   }
+
   // handle submit
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (!validateEmail(email)) {
-      alert("Invalid email format");
+    // event.preventDefault();
+    event.stopPropagation();
+    const form = event.currentTarget;
+    if (form.checkValidity() === false) {
+      setValidated(true);
       return;
     }
-    if (!validatePhoneNumber(phone)) {
-      alert("Invalid phone number format");
-      return;
-    }
+
     setLoading(true);
     try {
       const response = await fetch('http://127.0.0.1:3001/contact-us-form', {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, phone , subject , message })
+        body: JSON.stringify({ name, email, phone, subject, message })
       });
 
       if (!response.ok) {
@@ -67,41 +65,19 @@ const Contact = () => {
       setLoading(false);
       alert("An error occurred while submitting the form. Please try again."); // Show an error alert
     }
-
   }
+
 
   return (
     <>
       <div className='events'>
-        {/* <div className="events"> */}
-        {/* <div className="page-nav no-margin row">
-        <div className="container">
-          <div className="row">
-            <h2>Our Contact</h2>
-            <ul>
-              <li>
-                <a href="/">
-                  <i className="fas fa-home"></i> Home
-                </a>
-              </li>
-              <li>  <a href="/contact">
-                <i className="fas fa-angle-double-right"></i> Contact
-              </a></li>
-            </ul>
-          </div>
-        </div>
-      </div> */}
-
         {/* Contact Form */}
-        <section className="our-blog" style={{marginTop:"-2rem"}}>
-
-
+        <section className="our-blog" style={{ marginTop: "-2rem" }}>
           {/* Contact Details */}
           <div className="row contact-row no-margin">
             <div className="container">
               <div className="row">
-
-                <form style={{ padding: "20px" }} className="col-sm-7" onSubmit={handleSubmit}>
+                <Form noValidate validated={validated} onSubmit={handleSubmit} style={{ padding: "20px" }} className="col-sm-7">
                   <h2 className="mb-4">Contact Form</h2>
 
                   <Form.Floating>
@@ -115,7 +91,9 @@ const Contact = () => {
                       required
                     />
                     <label htmlFor="name">Full Name</label>
-                    <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
+                    <Form.Control.Feedback type="invalid">
+                      Please provide your full name.
+                    </Form.Control.Feedback>
                   </Form.Floating>
 
                   <Form.Floating>
@@ -126,9 +104,13 @@ const Contact = () => {
                       size='lg'
                       name='email'
                       onChange={(e) => setEmail(e.target.value)}
+                      required
+                      isValid={email && validateEmail(email)}
                     />
                     <label htmlFor="email">Email address</label>
-                    
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid email.
+                    </Form.Control.Feedback>
                   </Form.Floating>
 
                   <Form.Floating>
@@ -139,22 +121,30 @@ const Contact = () => {
                       size='lg'
                       name='contact'
                       onChange={(e) => setContact(e.target.value)}
+                      required
+                    
+                      isValid={phone && validatePhoneNumber(phone)}
                     />
                     <label htmlFor="contact">Mobile Number</label>
+                    <Form.Control.Feedback type="invalid">
+                      Please provide a valid mobile number.
+                    </Form.Control.Feedback>
                   </Form.Floating>
 
-                  <Form.Floating>
-                    <Form.Control
-                      id="subject"
-                      type="text"
-                      placeholder=""
-                      size='lg'
-                      name='subject'
-                      onChange={(e) => setSubject(e.target.value)}
-                    />
-                    <label htmlFor="subject">Subject</label>
-                  </Form.Floating>
+                  <FloatingLabel controlId="floatingSelect" label="Subject">
+                    <Form.Select onChange={(e) => setSubject(e.target.value)} name='subject' id='subject' aria-label="subject" required>
+                      <option value="">Select</option>
+                      <option value="suggestion">Suggestion</option>
+                      <option value="contact">Contact</option>
+                      <option value="complaint">Complaint</option>
+                      <option value="others">Others</option>
+                    </Form.Select>
+                    <Form.Control.Feedback type="invalid">
+                      Please select a subject.
+                    </Form.Control.Feedback>
+                  </FloatingLabel>
 
+                  <br />
 
                   <FloatingLabel controlId="floatingTextarea2" label="Comments">
                     <Form.Control
@@ -162,13 +152,17 @@ const Contact = () => {
                       placeholder=""
                       onChange={(e) => setComment(e.target.value)}
                       style={{ height: '100px' }}
+                      required
                     />
+                    <Form.Control.Feedback type="invalid">
+                      Please provide your comments.
+                    </Form.Control.Feedback>
                   </FloatingLabel>
 
                   <Button className='d-block m-auto' type='submit' size='lg' variant="success" disabled={loading}>
-                    {loading ? "Submitting..." : "Contact-Us"}
+                    {loading ? "Submitting..." : "Contact Us"}
                   </Button>
-                </form>
+                </Form>
 
                 <div className="col-sm-5">
                   <div style={{ margin: "50px" }} className="serv">

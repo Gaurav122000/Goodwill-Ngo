@@ -8,6 +8,7 @@ import Donation from './components/Donation/Donation';
 import Volunteer from './components/Volunteer/Volunteer'
 import BlogForm from './components/Forms/BlogForm';
 import GalleryForm from './components/Forms/GalleryForm';
+import Query from './components/Query/Query';
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path:"/galleryform",
     element:<GalleryForm />
+  },
+  {
+    path:"/query",
+    element:<Query />
   },
  
 ])

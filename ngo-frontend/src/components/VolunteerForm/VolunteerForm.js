@@ -6,10 +6,10 @@ import "./VolunteerForm.css"
 import Button from 'react-bootstrap/Button';
 import { useNavigate } from 'react-router-dom';
 // import 'bootstrap/dist/css/bootstrap.min.css';
-import {  toast } from 'react-custom-alert';
+import { toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
+import { faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
 
 
 function VolunteerForm() {
@@ -20,6 +20,7 @@ function VolunteerForm() {
     const [gender, setGender] = useState()
     const [address, setAddress] = useState()
     const [loading, setLoading] = useState(false);
+    const [validated, setValidated] = useState(false);
     const navigate = useNavigate();
 
     // validator
@@ -28,9 +29,9 @@ function VolunteerForm() {
         return re.test(String(email).toLowerCase());
     }
 
-    const validatePhoneNumber = (number) => {
+    const validatePhoneNumber = (contact) => {
         var re = /^\d{10}$/;
-        return re.test(number);
+        return re.test(contact);
     }
 
     const validateAge = (age) => {
@@ -40,32 +41,38 @@ function VolunteerForm() {
     //handle submit controlling the submition
     const handleSubmit = async (event) => {
         event.preventDefault();
+        event.stopPropagation();
+        const form = event.currentTarget;
+        if (form.checkValidity() === false) {
+            setValidated(true);
+            return;
+        }
         if (!validateEmail(email)) {
             toast.warning(
-                <div style={{fontWeight:"bold"}}>Email Alert : Enter Valid Email &nbsp;
-                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                <div style={{ fontWeight: "bold" }}>Email Alert : Enter Valid Email &nbsp;
+                    <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
                 </div>
-                );
-                return;
-           
+            );
+            return;
+
         }
         if (!validatePhoneNumber(contact)) {
             toast.warning(
-                <div style={{fontWeight:"bold"}}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
-                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                <div style={{ fontWeight: "bold" }}> Mobile Number Alert : Number Should be of 10 digits &nbsp;
+                    <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
                 </div>
-                )
-                alert("")
-                return;
+            )
+            alert("")
+            return;
         }
         if (!validateAge(age)) {
             toast.warning(
-                <div style={{fontWeight:"bold"}}>Age Alert : Age Should be between 18 to 80 &nbsp;
-                <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{color: "#f60404",}} />
+                <div style={{ fontWeight: "bold" }}>Age Alert : Age Should be between 18 to 80 &nbsp;
+                    <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
                 </div>
-                )
-                return;
-            
+            )
+            return;
+
         }
         setLoading(true);
         try {
@@ -103,7 +110,7 @@ function VolunteerForm() {
         <>
             <div className="volunteer">
                 <div className="VolunteerForm">
-                    <form className='form-volunteer' onSubmit={handleSubmit}>
+                    <Form noValidate validated={validated} className='form-volunteer' onSubmit={handleSubmit}>
                         {/* <h2>Volunteer Form</h2> */}
                         <Form.Floating>
                             <Form.Control
@@ -126,8 +133,12 @@ function VolunteerForm() {
                                 name='email'
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
+                                isValid={email && validateEmail(email)}
                             />
                             <label htmlFor="email">Email address</label>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid email.
+                            </Form.Control.Feedback>
                         </Form.Floating>
                         <Form.Floating>
                             <Form.Control
@@ -138,8 +149,12 @@ function VolunteerForm() {
                                 name='contact'
                                 onChange={(e) => setContact(e.target.value)}
                                 required
+                                isValid={contact && validatePhoneNumber(contact)}
                             />
                             <label htmlFor="contact">Mobile Number</label>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide a valid mobile number.
+                            </Form.Control.Feedback>
                         </Form.Floating>
                         <Form.Floating>
                             <Form.Control
@@ -150,8 +165,12 @@ function VolunteerForm() {
                                 name='age'
                                 onChange={(e) => setAge(e.target.value)}
                                 required
+                                isValid={age && validateAge(age)}
                             />
                             <label htmlFor="age">Age</label>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide age between 18 - 80 .
+                            </Form.Control.Feedback>
                         </Form.Floating>
                         <FloatingLabel controlId="floatingSelect" label="Select Your Gender">
                             <Form.Select onChange={(e) => setGender(e.target.value)} name='gender' aria-label="Gender" required>
@@ -159,6 +178,9 @@ function VolunteerForm() {
                                 <option value="male">Male</option>
                                 <option value="female">Female</option>
                             </Form.Select>
+                            <Form.Control.Feedback type="invalid">
+                                Please select a subject.
+                            </Form.Control.Feedback> 
                         </FloatingLabel>
                         <br />
                         <Form.Floating>
@@ -172,11 +194,14 @@ function VolunteerForm() {
                                 required
                             />
                             <label htmlFor="address">Address</label>
+                            <Form.Control.Feedback type="invalid">
+                                Please provide your Address.
+                            </Form.Control.Feedback>
                         </Form.Floating>
                         <Button className='btn' type='submit' size='lg' variant="success" disabled={loading}>
                             {loading ? "Submitting..." : "Be a Volunteer"}
                         </Button>
-                    </form>
+                    </Form>
                 </div>
             </div>
 
