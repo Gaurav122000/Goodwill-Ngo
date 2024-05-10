@@ -18,3 +18,10 @@ code {
   cursor: pointer;
 }
 
+.btn1 , .btn2{
+border-radius: 32px;
+margin: 0.5rem 0.7rem;
+padding: 0.3rem;
+border: 1px solid grey;
+
+}

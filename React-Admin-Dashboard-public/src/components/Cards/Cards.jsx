@@ -51,6 +51,26 @@ const Cards = () => {
 
   }, []);
 
+  useEffect(()=>{
+    fetch('http://localhost:3001/contact')
+    .then(response => response.json())
+    .then(data => {
+      setCards(previous=>{
+        const newCards = previous.map((card,index)=>{
+          if(index==1){
+            return{
+              ...card , value:data.length
+            }
+          }
+          else{
+            return card
+          }
+        })
+        return newCards
+      })
+    });
+  },[]);
+
 
 
 

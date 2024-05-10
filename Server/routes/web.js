@@ -93,7 +93,7 @@ function initRoutes(app){
     })
 
     app.get('/contact', async (req,res) => {
-        const contact = await ContactModel.find({});
+        const contact = await ContactUsModel.find({});
         res.json(contact)
     })
 

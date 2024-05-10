@@ -22,8 +22,6 @@ export default function BasicTable() {
     fetch('http://localhost:3001/donate')
       .then(response => response.json())
       .then(data => setDonate(data));
-
-
   }, []);
 
 

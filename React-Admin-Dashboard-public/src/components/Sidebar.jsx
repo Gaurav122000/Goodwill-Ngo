@@ -54,7 +54,7 @@ const Sidebar = () => {
               navigate("/Volunteer")
             }
             else if(index===3){
-              navigate("/Products")
+              navigate("/query")
             }
             else if(index===4){
               navigate("/Feedback")
