@@ -6,16 +6,37 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import QueryData from '../Query/QueryData';
+import { useNavigate } from 'react-router-dom';
 
 const QueryTable = () => {
+
+    const tokenValue = window.localStorage.getItem("token")
+
+    const navigate = useNavigate()
 
     const [query, setQuery] = useState([])
 
     useEffect(() => {
-        fetch('http://localhost:3001/contact')
-            .then(response => response.json())
+        fetch('http://localhost:3001/contact',{
+            method: "POST",
+            headers: 
+            { 
+            "Content-Type": "application/json" ,
+            } ,
+            body: JSON.stringify({ token : tokenValue })
+          })
+          .then(response => {
+            if (response.status === 404) {
+                // Navigate to the 404 error page
+                navigate('/error404');
+            }
+            return response.json();
+        })
             .then(data => setQuery(data));
-    }, [])
+    }, [navigate, tokenValue])
+
+    // console.log(query)
 
     return (
         <>
@@ -27,20 +48,16 @@ const QueryTable = () => {
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
                         <TableHead>
                             <TableRow>
-                                <TableCell>Id</TableCell>
+                                <TableCell align='left'>TicketId</TableCell>
                                 <TableCell align="left">Subject</TableCell>
-                                <TableCell align="left"></TableCell>
+                                <TableCell align="left">Details</TableCell>
+                                <TableCell align="left">Status</TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody style={{ color: "white" }}>
                             {query.map((value) => (
-                                        <TableRow key={value.ticketId} sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
-                                            <TableCell component="th" scope="row">{value.ticketId}</TableCell>
-                                            <TableCell component="th" scope="row">{value.subject}</TableCell>
-                                            <TableCell component="th" scope="row"></TableCell>
-                                            <TableCell align="left" className="Details">Details</TableCell>
-                                        </TableRow>
-                                    ))}
+                                <QueryData value={value} />
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>

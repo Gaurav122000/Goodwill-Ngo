@@ -54,3 +54,91 @@
 .dash{
   margin-top: 4rem;
 }
+
+/* Login Page CSS */
+
+.login-page{
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+  );
+}
+
+.box-shadow {
+  border-radius: 16px;
+  box-shadow: 0px 3px 14px 2px rgba(0,0,0,0.68);
+-webkit-box-shadow: 0px 3px 14px 2px rgba(0,0,0,0.68);
+-moz-box-shadow: 0px 3px 14px 2px rgba(0,0,0,0.68);
+  background-color: white;
+}
+
+/* SignUp Page CSS */
+
+/* Registeration Form CSS */
+.mainFormContainer{
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+.registerForm {
+  display: flex; 
+  width: 30%; 
+  border-radius: 16px;
+  padding: 1rem;
+
+}
+.registerForm Button{
+  display: block;
+  margin: 0 auto;
+}
+
+.registerForm h1{
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.login{
+  
+ margin: 1rem 0;
+ display: flex;
+ justify-content: center;
+ 
+}
+
+/* 404 Error */
+
+.error{
+  background: linear-gradient(
+    106.37deg,
+    #ffe1bc 29.63%,
+    #ffcfd1 51.55%,
+    #f3c6f1 90.85%
+  );
+  height: 100vh;
+  padding-top: 5rem;
+}
+
+/* Handling Button CSS in Contact Table */
+
+.handleDetailsButton {
+  background-color: #e7e7e7;
+  color: black;
+  border: none;
+  border-radius: 8px;
+  padding: 0.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1rem;
+}

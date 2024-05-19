@@ -1,0 +1,25 @@
+.queryCard {
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    border: 2px solid black;
+    border-radius: 16px;
+    margin: 0.5rem 1rem;
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.cardClose {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0.4rem 1rem;
+    text-align: center;
+    text-decoration: none;
+    display: block;
+    font-weight: bolder;
+    margin: 1rem auto 0;
+    font-family: sans-serif;
+}

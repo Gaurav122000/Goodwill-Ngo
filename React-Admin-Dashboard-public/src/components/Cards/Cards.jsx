@@ -6,11 +6,20 @@ import Card from "../Card/Card";
 
 const Cards = () => {
 
+  const tokenValue = window.localStorage.getItem("token")
+  
   const [cards , setCards] = useState(cardsData)
   
 
   useEffect(() => {
-    fetch('http://localhost:3001/donate')
+    fetch('http://localhost:3001/donate' , {
+      method: "POST",
+      headers: 
+      { 
+      "Content-Type": "application/json" ,
+      } ,
+      body: JSON.stringify({ token : tokenValue })
+    })
       .then(response => response.json())
       .then(data => {
         setCards(previous=>{
@@ -28,10 +37,17 @@ const Cards = () => {
         })
       });
 
-  }, []);
+  }, [tokenValue]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/volunteer')
+    fetch('http://localhost:3001/volunteer' , {
+      method: "POST",
+      headers: 
+      { 
+      "Content-Type": "application/json" ,
+      } ,
+      body: JSON.stringify({ token : tokenValue })
+    } )
       .then(response => response.json())
       .then(data => {
         setCards(previous=>{
@@ -49,15 +65,22 @@ const Cards = () => {
         })
       });
 
-  }, []);
+  }, [tokenValue]);
 
   useEffect(()=>{
-    fetch('http://localhost:3001/contact')
+    fetch('http://localhost:3001/contact' , {
+      method: "POST",
+      headers: 
+      { 
+      "Content-Type": "application/json" ,
+      } ,
+      body: JSON.stringify({ token : tokenValue })
+    })
     .then(response => response.json())
     .then(data => {
       setCards(previous=>{
         const newCards = previous.map((card,index)=>{
-          if(index==1){
+          if(index===1){
             return{
               ...card , value:data.length
             }
@@ -69,7 +92,7 @@ const Cards = () => {
         return newCards
       })
     });
-  },[]);
+  },[tokenValue]);
 
 
 

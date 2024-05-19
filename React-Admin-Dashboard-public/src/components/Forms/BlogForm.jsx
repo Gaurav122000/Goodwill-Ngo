@@ -60,8 +60,7 @@ const BlogForm = () => {
                     <Form.Control name='blog' type='text' as="textarea" placeholder='Write Your Blog' rows={3} onChange={(e)=>setBlog(e.target.value)} />
                   </Form.Group>
                   <Button className='d-block m-auto mt-3' type='submit' variant="success">Upload Blog</Button>
-                </Form>
-              
+                </Form>      
             </div>
           </div>
         </div>
