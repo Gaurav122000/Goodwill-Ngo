@@ -57,8 +57,8 @@ function Home() {
       <section className="events">
         <div className="container">
           <div className="session-title row">
-            <h2>Popular Causes</h2>
-            <p>We are a non-profit & Charity raising money for child education</p>
+            <h2>Services By Our NGO</h2>
+            <p>We are a non-profit & Charity raising money for child education and Child Support</p>
           </div>
           <div className="event-row row">
             {/* Example event box */}

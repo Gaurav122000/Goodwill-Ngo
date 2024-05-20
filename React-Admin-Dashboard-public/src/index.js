@@ -9,11 +9,21 @@ import Volunteer from './components/Volunteer/Volunteer'
 import BlogForm from './components/Forms/BlogForm';
 import GalleryForm from './components/Forms/GalleryForm';
 import Query from './components/Query/Query';
+import LoginPage from './components/LoginPage';
+import SignupPage from './components/SignupPage';
+import Error404 from "./components/ErrorCode/Error404"
+
+const isLoggedin=window.localStorage.getItem("loggedIn")
 
 const router = createBrowserRouter([
   {
-    path: "/",
-    element: <App />,
+    path:"/",
+    element:<LoginPage />
+  },
+  {
+    path: "/app",
+    // element: isLoggedin === "true" ? <App /> : <LoginPage/> ,
+    element:<App />
   },
   {
     path: "/Upload",
@@ -39,6 +49,15 @@ const router = createBrowserRouter([
     path:"/query",
     element:<Query />
   },
+  {
+    path:"/signup",
+    element:<SignupPage />
+  },
+  {
+    path:"/error404",
+    element:<Error404 />
+  },
+
  
 ])
 

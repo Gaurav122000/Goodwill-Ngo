@@ -14,6 +14,12 @@ const Sidebar = () => {
 
   const navigate = useNavigate();
 
+  const handleSignOut = () => {
+      window.localStorage.clear();
+      navigate("/")
+  }
+
+
   const sidebarVariants = {
     true: {
       left : '0'
@@ -45,7 +51,7 @@ const Sidebar = () => {
           const handleChoice = () => {
             setSelected(index)
             if(index===0){
-              navigate("/")
+              navigate("/app")
             }
             else if(index===1){
               navigate("/Table")
@@ -57,9 +63,6 @@ const Sidebar = () => {
               navigate("/query")
             }
             else if(index===4){
-              navigate("/Feedback")
-            }
-            else if(index===5){
               navigate("/Upload")
             }
           }
@@ -73,13 +76,13 @@ const Sidebar = () => {
             >
               <item.icon />
               <span>{item.heading}</span>
-              
             </div>
           );
         })}
+        
         {/* signoutIcon */}
-        <div className="menuItem">
-          <UilSignOutAlt />
+        <div className="menuItem" onClick={handleSignOut}>
+          <UilSignOutAlt />Sign Out
         </div>
       </div>
     </motion.div>

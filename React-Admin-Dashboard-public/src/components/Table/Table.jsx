@@ -10,19 +10,37 @@ import { useState } from "react";
 import { useEffect } from "react";
 import "./Table.css";
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from "react-router-dom";
 
 
 export default function BasicTable() {
+
+  const tokenValue = window.localStorage.getItem("token")
+
+  const navigate = useNavigate()
+
   const [donate, setDonate] = useState([]);
 
-  // const [donate]
   const [search, setSearch] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:3001/donate')
-      .then(response => response.json())
+    fetch('http://localhost:3001/donate',{
+      method: "POST",
+      headers: 
+      { 
+      "Content-Type": "application/json" ,
+      } ,
+      body: JSON.stringify({ token : tokenValue })
+    })
+    .then(response => {
+      if (response.status === 404) {
+          // Navigate to the 404 error page
+          navigate('/error404');
+      }
+      return response.json();
+  })
       .then(data => setDonate(data));
-  }, []);
+  }, [navigate, tokenValue]);
 
 
 

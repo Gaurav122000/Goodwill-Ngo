@@ -43,10 +43,6 @@ export const SidebarData = [
     heading: 'Queries'
   },
   {
-    icon: UilChart,
-    heading: 'Feedback'
-  },
-  {
     icon: UilUpload,
     heading: 'Upload',
     link : "/Upload"
@@ -65,7 +61,6 @@ export const cardsData = [
     value:"0",
     png: UilUsdSquare,
     link:"/Table"
-    
   },
   {
     title: "Query List",

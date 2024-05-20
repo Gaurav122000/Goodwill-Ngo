@@ -5,6 +5,9 @@ const cors = require("cors");
 require("dotenv").config();
 
 
+
+// MongoDB ATLAS Connection
+
 let PORT = process.env.Port;
 
 const db = process.env.db_atlas;

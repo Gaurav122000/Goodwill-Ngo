@@ -9,19 +9,36 @@ import Paper from "@mui/material/Paper";
 import { useState } from "react";
 import { useEffect } from "react";
 import "./Table.css";
+import { useNavigate } from "react-router-dom";
 // import Form from 'react-bootstrap/Form';
 
 
 export default function VolunteerTable() {
+
+    const navigate = useNavigate()
+    
     const [volunteer, setVolunteer] = useState([]);
 
-    //  
+    const tokenValue = window.localStorage.getItem("token")
 
     useEffect(() => {
-        fetch('http://localhost:3001/volunteer')
-            .then(response => response.json())
+        fetch('http://localhost:3001/volunteer' ,{
+            method: "POST",
+            headers: 
+            { 
+            "Content-Type": "application/json" ,
+            } ,
+            body: JSON.stringify({ token : tokenValue })
+          })
+          .then(response => {
+            if (response.status === 404) {
+                // Navigate to the 404 error page
+                navigate('/error404');
+            }
+            return response.json();
+        })
             .then(data => setVolunteer(data));
-    }, []);
+    }, [navigate, tokenValue]);
 
 
 
