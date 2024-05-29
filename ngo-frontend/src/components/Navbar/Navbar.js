@@ -23,14 +23,16 @@ function Navbar() {
 
   // Style for active button
   const activeStyle = {
-    backgroundColor: 'green',
+    backgroundColor: '#28a745',
     color: 'white',
+    fontWeight:"400"
   };
 
   // Style for inactive button
   const inactiveStyle = {
     backgroundColor: '',
-    color: ''
+    color: '',
+    fontWeight:"400"
   };
 
 
@@ -45,12 +47,12 @@ function Navbar() {
                 <ul className="ulleft">
                   <li>
                     <i className="far fa-envelope"></i>
-                    sales@smarteyeapps.com
+                    goodwillngo@gmail.com
                     <span>|</span>
                   </li>
                   <li>
                     <i className="fas fa-phone-volume"></i>
-                    +876 987 666 5433
+                    +91 8009478238
                   </li>
                 </ul>
               </div>
@@ -76,7 +78,7 @@ function Navbar() {
                   onClick={() => handleButtonClick1()}
                   style={activeButton1 ? activeStyle : inactiveStyle}
                 >
-                  <Link to='/VolunteerForm'>
+                  <Link to='/VolunteerForm' className='btn-nav' style={activeButton1 ? activeStyle : inactiveStyle}>
                     Be a Volunteer
                   </Link>
                 </button>
@@ -84,7 +86,7 @@ function Navbar() {
                   onClick={() => handleButtonClick2()}
                   style={activeButton2 ? activeStyle : inactiveStyle}
                 >
-                  <Link to="/donation">
+                  <Link to="/donation" className='btn-nav' style={activeButton2 ? activeStyle : inactiveStyle}>
                   Donate
                   </Link>
                 </button>

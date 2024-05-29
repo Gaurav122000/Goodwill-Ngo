@@ -7,23 +7,16 @@ import "../../assets/css/animate.css";
 function Footer() {
   return (
     <div>
-      {/* ************************* Footer Starts Here ************************** */}
-
       <footer className="footer">
         <div className="container">
           <div className="row">
             <div className="col-md-4 col-sm-12">
               <h2>About Us</h2>
               <p>
-                Smart Eye is a leading provider of information technology,
-                consulting, and business process services. Our dedicated
-                employees offer strategic insights, technological expertise and
-                industry experience.
+              Goodwill NGO, as the name suggests, carries a sense of positivity and benevolence. The name itself evokes a feeling of trust and warmth, making it inviting for people to engage with and support the organization's mission.
               </p>
               <p>
-                We focus on technologies that promise to reduce costs,
-                streamline processes and speed time-to-market, Backed by our
-                strong quality processes and rich experience managing global...{" "}
+              Your support is crucial to our mission. By donating to GoodWill NGO, you become a part of something bigger — a movement of kindness and generosity that's changing lives one child at a time. {" "}
               </p>
             </div>
             <div className="col-md-4 col-sm-12">
@@ -54,23 +47,13 @@ function Footer() {
             <div className="col-md-4 col-sm-12 map-img">
               <h2>Contact Us</h2>
               <address className="md-margin-bottom-40">
-                Plot 20, IT Plots, ConsultIT House, TECHZONE 7, West, opposite
-                Bloom International School, Greater Noida, Uttar Pradesh 20320<br />
-                {/* BlueDart <br />
-                            Marthandam (K.K District) <br />
-                            Tamil Nadu, IND <br /> */}
-                        
-                Phone:{""}
-                <a href="/">+91-9810266776<br /></a>
-                Email:{" "}
-                <a href="#" className="">
-                info@connectingit.in
-                </a>
+                Plot 20, IT Plots, ConsultIT House, TECHZONE 7, West, Opposite
+                Bloom International School, Greater Noida, Uttar Pradesh ,203200
+                <br />      
+                Phone:{" +91 8009478238"}
                 <br />
-                {/* Web:{" "}
-                <a href="smart-eye.html" className="">
-                  www.bluedart.in
-                </a> */}
+                Email:{" goodwillngo@gmail.com"}
+                <br />
               </address>
               <div className="donate-link col-md-3">
                 <a href="/" className="btn btn-primary ">
@@ -79,42 +62,27 @@ function Footer() {
               </div>
             </div>
           </div>
-
-          {/* <div className="nav-box row clearfix">
-                    <div className="inner col-md-9 clearfix">
-                        <ul className="footer-nav clearfix">
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/about">About</a></li>
-                            <li><a href="/gallery">Gallery</a></li>
-                            <li><a href="/services">Services</a></li>
-                            <li><a href="/blog">Blog</a></li>
-                            <li><a href="/contact">Contact</a></li>
-                        </ul>
-    
-                      
-                    </div>
-                      <div className="donate-link col-md-3"><a href="donate.html" className="btn btn-primary "><span className="btn-title">Donate Now</span></a></div>
-                </div> */}
+          
         </div>
       </footer>
       <div className="copy">
         <div className="container">
-          <a href="https://www.smarteyeapps.com/">
-            2015 &copy; All Rights Reserved | Designed and Developed by
-            Smarteyeapps
+          <a href="/">
+            2024 &copy; All Rights Reserved | Designed and Developed by
+            ConsultIT Pvt. Ltd.
           </a>
 
           <span>
-            <a>
+            <a href="https://www.facebook.com">
               <i className="fab fa-facebook-square"></i>
             </a>
-            <a>
+            <a href='https://www.instagram.com'>
               <i className="fab fa-instagram"></i>
             </a>
-            <a>
+            <a href='https://www.linkedin.com/'>
               <i className="fab fa-linkedin"></i>
             </a>
-            <a>
+            <a href='https://web.whatsapp.com'>
               <i className="fab fa-whatsapp"></i>
             </a>
           </span>
