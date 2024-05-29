@@ -7,13 +7,14 @@ const ContactUsModel = require('../models/contact.model');
 const BlogModel = require('../models/blog.model');
 const GalleryModel = require('../models/gallery.model');
 const UserSignup = require('../models/userSignup.model');
+const checkoutController = require('../controllers/paymentController');
+require("dotenv").config();
 
 // JWT Token
 
 const jwt = require("jsonwebtoken");
 
-const JWT_SECRET = "qwertyuiopasdfghjklzxcvbnm1234567890!@#$%^&*()"
-
+const JWT_SECRET = process.env.JWT_SECRET_KEY;
 
 function initRoutes(app) {
     //
@@ -21,7 +22,8 @@ function initRoutes(app) {
         //console.log(req.body);
         const donateData = req.body;
         DonateModel.create(donateData)
-            .then(donate => {
+            .then(async donate => {
+                console.log(donate);
                 // Create a new object with only the properties you want to send back
                 const responseDonate = {
                     name: donate.name,
@@ -29,7 +31,7 @@ function initRoutes(app) {
                     // Include any other properties you want to send back
                 };
                 res.json(responseDonate);
-                sendMail(donate);
+                await sendMail(donate);
             })
             .catch(err => {
                 console.error(err);
@@ -37,6 +39,18 @@ function initRoutes(app) {
             })
     })
 
+    //for checkout
+    app.post('/checkout', (req, res) => {
+        const amount = req.body.amount;
+        checkoutController(amount).checkout(req,res)
+    });
+
+    app.post('/paymentverification', checkoutController().paymentVerification)
+
+    //for key
+    app.get("/api/getkey", (req, res) => 
+        res.status(200).json({key: process.env.Razor_Key_id})
+    );
     // volunteer form api
     app.post('/volunteer-form', (req, res) => {
         const volunteerData = req.body;

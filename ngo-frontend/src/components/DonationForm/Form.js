@@ -9,7 +9,8 @@ import { toast } from 'react-custom-alert';
 import 'react-custom-alert/dist/index.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faExclamation, faFaceSmile } from '@fortawesome/free-solid-svg-icons';
-import Alert from 'react-bootstrap/Alert';
+import axios from 'axios';
+
 
 
 const DonationForm = () => {
@@ -24,6 +25,8 @@ const DonationForm = () => {
   const [pickup, setPickupChoice] = useState()
   const [loading, setLoading] = useState(false);
   const [validated, setValidated] = useState(false);
+  const [mAmnt, setMinAmnt] = useState(0)
+  const [showhide, setShowHide] = useState("")
 
   const navigate = useNavigate();
 
@@ -65,6 +68,18 @@ const DonationForm = () => {
       return;
     }
 
+    // If donation type is 'money', open the payment gateway
+    if (showhide === "money") {
+      checkoutHandler(event);
+    } else {
+      // If donation type is not 'money', submit the form data
+      submitFormData();
+    }
+  }
+
+
+  // Function to submit form data
+  const submitFormData = async () => {
     // sending data
     setLoading(true);
     try {
@@ -84,7 +99,6 @@ const DonationForm = () => {
 
       setTimeout(() => {
         setLoading(false);
-        alert("Form submitted successfully!");
         navigate('/'); // Redirect to home page
       }, 3000);
     }
@@ -94,8 +108,55 @@ const DonationForm = () => {
       setLoading(false);
       alert("An error occurred while submitting the form. Please try again."); // Show an error alert
     }
+  }
+
+  // FOR Razor pay
+const checkoutHandler = async (event) => {
+  //for checking minmum amount
+  if (showhide === "money" && mAmnt <= 250) {
+      toast.warning(
+          <div style={{ fontWeight: "bold" }}> Money Alert : Money Should be More then 250
+              <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
+          </div>
+      )
+      event.preventDefault(); // This will prevent the form from being submitted
 
   }
+  else {
+      const { data: { order } } = await axios.post("http://127.0.0.1:3001/checkout", { amount });
+      const { data: { key } } = await axios.get("http://127.0.0.1:3001/api/getkey");
+      const options = {
+          key, // Enter the Key ID generated from the Dashboard
+          amount: Number(amount) * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+          currency: "INR",
+          name: "Goodwill NGO",
+          description: "Donation Payment",
+          image: "https://github.com/Gaurav122000/EduHub-main/assets/100744516/bb1a3d47-6fe9-455f-a78b-452c512a22a3",//logo
+          order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+          callback_url: "http://127.0.0.1:3001/paymentverification",
+          prefill: {
+              name: "Gaurav Sharma",
+              email: "gaurav.kumar@example.com",
+              contact: "8375881403"
+          },
+          notes: {
+              "address": "Razorpay Corporate Office"
+          },
+          theme: {
+              "color": "#00ab41"
+          },
+          handler: async function (response) {
+              // After successful payment, submit the form data
+              await submitFormData();
+          }
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+      //e.preventDefault();
+  }
+}
+
 
   //For quantity
   const minQuantity = (e) => {
@@ -128,18 +189,12 @@ const DonationForm = () => {
     setUserChoice(e.target.value)
   }
 
-
-  const [mAmnt, setMinAmnt] = useState(0)
   const minAmnt = (eventMin) => {
     var amnt = eventMin.target.value;
     setMinAmnt(amnt)
     setAmount(amnt);
 
   }
-
-  const [showhide, setShowHide] = useState("")
-
-
 
   const handleOnchange = (event) => {
     let value = event.target.value;
@@ -148,20 +203,6 @@ const DonationForm = () => {
     if (value !== "money") {
       setAmount(0); // Reset the amount state if donation type is not 'money'
     }
-  }
-
-  const handleMinAmount = (event) => {
-
-    if (showhide === "money" && mAmnt <= 250) {
-      toast.warning(
-        <div style={{ fontWeight: "bold" }}> Money Alert : Money Should be More then 250 &nbsp;
-          <FontAwesomeIcon icon={faExclamation} beat size="sm" style={{ color: "#f60404", }} />
-        </div>
-      )
-      event.preventDefault(); // This will prevent the form from being submitted
-
-    }
-
   }
 
   return (
@@ -258,8 +299,8 @@ const DonationForm = () => {
                     />
                     <label htmlFor="Amount">Amount</label>
                   </Form.Floating>
-                  <Button className='btn' id="submitButton" type='submit' size='lg' variant="success" disabled={loading} onClick={(event) => handleMinAmount(event)}>
-                    {loading ? "Payment Gateway..." : "Make Payment"}
+                  <Button className='btn' id="rzp-button1" type='submit' size='lg' variant="success" disabled={loading}>
+                    {loading ? "Thanks, Redirecting..." : "Make Payment"}
                   </Button>
                 </div>
               )
@@ -289,7 +330,7 @@ const DonationForm = () => {
                             size='lg'
                             name='pickup'
                             onChange={minQuantity}
-                          />              
+                          />
                           <label htmlFor="quantity">Quantity</label>
                         </Form.Floating>
                         <Button className='btn' id="submitButton" type='submit' size='lg' variant="success" disabled={loading} onClick={handleQuantity}>
@@ -318,5 +359,6 @@ const DonationForm = () => {
     </>
   )
 }
+
 
 export default DonationForm

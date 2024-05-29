@@ -20,8 +20,6 @@ function Navbar() {
     setActiveButton1(false);
     setActiveButton2(true);
   }
-  console.log(activeButton1);
-  console.log(activeButton2);
 
   // Style for active button
   const activeStyle = {
@@ -60,16 +58,16 @@ function Navbar() {
                 <ul className="ulright">
                   <li> <small>Follow Us</small>:</li>
                   <li>
-                    <i className="fab fa-facebook-square"></i>
+                    <a href='https://www.facebook.com/'><i className="fab fa-facebook-square"></i></a>
                   </li>
                   <li>
-                    <i className="fab fa-instagram"></i>
+                    <a href='https://www.instagram.com/'><i className="fab fa-instagram"></i></a>
                   </li>
                   <li>
-                    <i className="fab fa-linkedin"></i>
+                    <a href='https://www.linkedin.com/'><i className="fab fa-linkedin"></i></a>
                   </li>
                   <li>
-                    <i className="fab fa-whatsapp"></i>
+                    <a href='https://web.whatsapp.com'><i className="fab fa-whatsapp"></i></a>
                   </li>
                 </ul>
               </div>
