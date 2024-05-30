@@ -19,8 +19,6 @@ function Blog() {
 
 
 
-
-
   return (
     <>
     <div className='events'>

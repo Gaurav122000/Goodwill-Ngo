@@ -18,16 +18,6 @@ const ServicesCard = ({ img, title, body }) => {
                     >
                         {title}
                     </h4>
-                    {/* <p
-                style={{
-                  textAlign: "center",
-                }}
-                className="raises"
-              >
-                <span style={{ color: "green" }}>Raised: $34,425</span> /
-                $500,000
-              </p> */}
-
                     <p
                         style={{
                             textAlign: "justify",

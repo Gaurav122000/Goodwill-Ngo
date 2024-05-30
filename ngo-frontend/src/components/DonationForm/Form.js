@@ -131,14 +131,9 @@ const checkoutHandler = async (event) => {
           currency: "INR",
           name: "Goodwill NGO",
           description: "Donation Payment",
-          image: "https://github.com/Gaurav122000/EduHub-main/assets/100744516/bb1a3d47-6fe9-455f-a78b-452c512a22a3",//logo
+          image: "https://goodwill-ngo.s3.ap-south-1.amazonaws.com/logo.jpg",//logo
           order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
           callback_url: "http://127.0.0.1:3001/paymentverification",
-          prefill: {
-              name: "Gaurav Sharma",
-              email: "gaurav.kumar@example.com",
-              contact: "8375881403"
-          },
           notes: {
               "address": "Razorpay Corporate Office"
           },

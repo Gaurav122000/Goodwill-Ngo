@@ -122,7 +122,7 @@ const Contact = () => {
                       name='contact'
                       onChange={(e) => setContact(e.target.value)}
                       required
-                    
+
                       isValid={phone && validatePhoneNumber(phone)}
                     />
                     <label htmlFor="contact">Mobile Number</label>
@@ -168,17 +168,17 @@ const Contact = () => {
                   <div style={{ margin: "50px" }} className="serv">
                     <h2 style={{ marginTop: "10px" }}>Address</h2>
                     <p>
-                      Antonya Street,
+                      Plot 20, IT Plots, ConsultIT House,TECHZONE 7,
                       <br />
-                      23/H-2, Building,
+                      West,Opposite Bloom International School,
                       <br />
-                      TA, AUS District
+                      Greater Noida, Uttar Pradesh 203200
                       <br />
-                      Phone: +91 9159669599
+                      Phone: +91 8009478238
                       <br />
-                      Email: support@smarteyeapps.com
+                      Email: goodwillngo@gmail.com
                       <br />
-                      Website: www.smarteyeapps.com
+                      Website: www.goodwillngo.com
                     </p>
                   </div>
                 </div>

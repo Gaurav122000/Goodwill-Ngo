@@ -16,7 +16,7 @@ function About() {
               <h2>About Our NGO</h2>
               <p>Goodwill NGO, as the name suggests, carries a sense of positivity and benevolence. The name itself evokes a feeling of trust and warmth, making it inviting for people to engage with and support the organization's mission.</p>
               <p>The name "Goodwill NGO" not only reflects the organization's commitment to doing good but also communicates its professional and structured approach to charitable work. It suggests that the organization operates with integrity, transparency, and a clear sense of purpose in its endeavors to make the world a better place.</p>
-              <p>Your support is crucial to our mission. By donating to [NGO Name], you become a part of something bigger—a movement of kindness and generosity that's changing lives one child at a time. Your contributions help us expand our reach, provide more essentials, and create brighter futures for children in need.</p>
+              <p>Your support is crucial to our mission. By donating to GoodWill NGO, you become a part of something bigger—a movement of kindness and generosity that's changing lives one child at a time. Your contributions help us expand our reach, provide more essentials, and create brighter futures for children in need.</p>
             </div>
             <div className="image-part col-md-6">
               <div className="about-quick-box row">
